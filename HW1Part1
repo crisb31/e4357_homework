@@ -1,0 +1,291 @@
+/*
+	Homework #1 Part I.
+	By Cris Bayaca.
+	Note: This c code can be optimized further and needs debugging if I had more time.
+*/
+
+#include <stdio.h>
+#include <stddef.h>
+#include <ctype.h>
+
+int num = 0;
+char loc = 'a';
+
+int main(void);
+int intro(void);
+int numberANDlocation(void);
+int numLOCrestricstions(void);
+int outputMATRIX(int, char);
+
+int main(void)
+{
+	intro();
+	numLOCrestrictions();
+	numberANDlocation();
+	outputMATRIX(num, loc);
+	return 0;
+}
+
+int intro(void)
+{
+	printf("\n");
+	printf("Hello World!\n\n");
+	printf("This c program asks you a number between 1 and 9, and a location\n");
+	printf("where you want to put it inside a 3x3 matrix as shown below.\n");
+	printf("You may choose location a, b, c, d, e, f, g, h or i.\n\n");
+	printf("\n\n");
+	printf("a	b	c\n\n");
+	printf("d	e	f\n\n");
+	printf("g	h	i\n\n\n");
+	printf("\n\n");
+	printf("The number you choose between 1 and 9 will be assigned to the location\n");
+	printf("you also have chosen.\n\n");
+	printf("Then, the other 8 locations will be filled automatically by the remaining\n");
+	printf("8 numbers you did not choose, where the sum of any single row, column or \n");
+	printf("diagonal has a sum of 15.\n\n");
+	printf("The result is only one of the different combinations giving a sum of 15\n");
+	printf("adding 3 digits from 1 to 9 horizontally, vertically or diagonally.\n\n");
+	return 0;
+}
+
+int numLOCrestrictions(void)
+{
+	printf("You can only put some numbers\n");
+	printf("in certain locations. Here are the restrictions:\n\n");
+	printf("Number 5 --> only in location e.\n");
+	printf("Numbers 1, 3, 7 & 9 --> only in location b, d, f or h.\n");
+	printf("Numbers 2, 4, 6 & 8 --> only in locatios a, c, g or i.\n");
+	printf("\n\n");
+	printf("a	b	c\n\n");
+	printf("d	e	f\n\n");
+	printf("g	h	i\n\n\n");
+	printf("\n\n");
+	return 0;
+}
+
+int numberANDlocation(void)
+{
+	printf("\n");
+	printf("Please input a number 1-9, and location a~i: ");
+	scanf("%d %c", &num, &loc);
+	while ((num<1 || num>9) && (loc!='a' || loc!='b'|| loc!='c'|| loc!='d'|| loc!='e'
+		|| loc!='f'|| loc!='g'|| loc!='h'|| loc!='i')) {
+		print("Please re-enter a number 1-9, and location a~i: ");
+		scanf("%d %c", &num, &loc);
+	}
+	if(num==5 && loc!='e') {
+		loc = 'e';
+		print("The number %d is assigned lo location e.");
+	}
+	else if(num==1 || num==3 || num==7 || num==9) {
+		while(loc!='b' || loc!= 'd' || loc!='f' || loc!='h') {
+			printf("Please enter location b, d, f or h, if your number is 1, 3, 7 or 9: ");
+			scanf("%c", &loc);
+		}
+	}
+	else
+		while(loc!='a' || loc!= 'c' || loc!='g' || loc!='i') {
+			printf("Please enter location a, c, g or i, if your number is 2, 4, 6 or 8: ");
+			scanf("%c", &loc);
+		}
+	
+	printf("You choose the number %d\n", num);
+	printf("in location %c\n", loc);
+	return 0;
+}
+
+int outputMATRIX(int number, char location)
+{
+	
+	if (number==5) {
+		printf("4 9 2\n");
+		printf("3 5 7\n"); 
+		printf("8 1 6\n");
+	}
+	if (number==2) {
+		if (location=='a') {
+			printf("2 7 6\n");
+			printf("9 5 1\n"); 
+			printf("4 3 8\n");
+		}
+		else if(location=='c'){
+			printf("4 9 2\n");
+			printf("3 5 7\n"); 
+			printf("8 1 6\n");
+		}
+		else if(location=='g'){
+			printf("6 1 8\n");
+			printf("7 5 3\n"); 
+			printf("2 9 4\n");
+		}
+		else if(location=='i'){
+			printf("8 3 4\n");
+			printf("1 5 9\n"); 
+			printf("6 7 2\n");
+		}
+	}
+
+	if (number==4) {
+		if (location=='a') {
+			printf("4 9 2\n");
+			printf("3 5 7\n"); 
+			printf("8 1 6\n");
+		}
+		else if(location=='c'){
+			printf("8 3 4\n");
+			printf("1 5 9\n"); 
+			printf("6 7 2\n");
+		}
+		else if(location=='g'){
+			printf("2 7 6\n");
+			printf("9 5 1\n"); 
+			printf("4 3 8\n");
+		}
+		else if(location=='i'){
+			printf("6 1 8\n");
+			printf("7 5 3\n"); 
+			printf("2 9 4\n");
+		}
+	}
+	
+	if (number==6) {
+		if (location=='a') {
+			printf("6 1 8\n");
+			printf("7 5 3\n"); 
+			printf("2 9 4\n");
+		}
+		else if(location=='c'){
+			printf("2 7 6\n");
+			printf("9 5 1\n"); 
+			printf("4 3 8\n");
+		}
+		else if(location=='g'){
+			printf("8 3 4\n");
+			printf("1 5 9\n"); 
+			printf("6 7 2\n");
+		}
+		else if(location=='i'){
+			printf("4 9 2\n");
+			printf("3 5 7\n"); 
+			printf("8 1 6\n");
+		}
+	}
+	
+	if (number==8) {
+		if (location=='a') {
+			printf("8 3 4\n");
+			printf("1 5 9\n"); 
+			printf("6 7 8\n");
+		}
+		else if(location=='c'){
+			printf("6 1 8\n");
+			printf("7 5 3\n"); 
+			printf("2 9 4\n");
+		}
+		else if(location=='g'){
+			printf("4 9 2\n");
+			printf("3 5 7\n"); 
+			printf("8 1 6\n");
+		}
+		else if(location=='i'){
+			printf("2 7 6\n");
+			printf("9 5 1\n"); 
+			printf("4 3 8\n");
+		}
+	}
+	
+	if (number==1) {
+		if(location=='b') {
+			printf("6 1 8\n");
+			printf("7 5 3\n"); 
+			printf("2 9 4\n");
+		}
+		else if(location=='d') {
+			printf("8 3 4\n");
+			printf("1 5 9\n"); 
+			printf("6 7 8\n");
+		}
+		else if(location=='f') {
+			printf("2 7 6\n");
+			printf("9 5 1\n"); 
+			printf("4 3 8\n");
+		}
+		else if(location=='h') {
+			printf("4 9 2\n");
+			printf("3 5 7\n"); 
+			printf("8 1 6\n");
+		}		
+	}
+
+	if (number==3) {
+		if(location=='b') {
+			printf("8 3 4\n");
+			printf("1 5 9\n"); 
+			printf("6 7 2\n");
+		}
+		else if(location=='d') {
+			printf("4 9 2\n");
+			printf("3 5 7\n"); 
+			printf("8 1 6\n");
+		}
+		else if(location=='f') {
+			printf("6 1 8\n");
+			printf("7 5 3\n"); 
+			printf("2 9 4\n");
+		}
+		else if(location=='h') {
+			printf("2 7 6\n");
+			printf("9 5 1\n"); 
+			printf("4 3 8\n");
+		}		
+	}
+
+	if (number==7) {
+		if(location=='b') {
+			printf("2 7 6\n");
+			printf("9 5 1\n"); 
+			printf("4 3 8\n");
+		}
+		else if(location=='d') {
+			printf("6 1 8\n");
+			printf("7 5 3\n"); 
+			printf("2 9 4\n");
+		}
+		else if(location=='f') {
+			printf("4 9 2\n");
+			printf("3 5 7\n"); 
+			printf("8 1 6\n");
+		}
+		else if(location=='h') {
+			printf("8 3 4\n");
+			printf("1 5 9\n"); 
+			printf("6 7 2\n");
+		}		
+	}
+
+	if (number==9) {
+		if(location=='b') {
+			printf("4 9 2\n");
+			printf("3 5 7\n"); 
+			printf("8 1 6\n");
+		}
+		else if(location=='d') {
+			printf("2 7 6\n");
+			printf("9 5 1\n"); 
+			printf("4 3 8\n");
+		}
+		else if(location=='f') {
+			printf("8 3 4\n");
+			printf("1 5 9\n"); 
+			printf("6 7 2\n");
+		}
+		else if(location=='h') {
+			printf("6 1 8\n");
+			printf("7 5 3\n"); 
+			printf("2 9 4\n");
+		}		
+	}
+	
+	return 0;
+}
+
