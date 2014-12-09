@@ -1,4 +1,6 @@
-A. Description: A program written in C, with different functions, that collectively asks the user to input a number from 1-9 and location where to put it in a 3x3 matrix. The program then prints out the 3x3 matrix with any row, column or diagonal having the sum of 15. Numbers 1-9 are only used once in the 3x3 matrix.
+A. Description: A program written in C, with different functions, that collectively asks the user to input a number 
+from 1-9 and location where to put it in a 3x3 matrix. The program then prints out the 3x3 matrix with any row, 
+column or diagonal having the sum of 15. Numbers 1-9 are only used once in the 3x3 matrix.
 
 Implementation:
 
