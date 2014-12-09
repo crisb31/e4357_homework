@@ -1,0 +1,167 @@
+A.	DIRECTIONS/QUESTIONS: 
+Objective: Study elua development environment
+
+Check out: https://github.com/Shengliang/elua.git
+
+Please use gitk to review those change logs. 
+  - apt-get install gitk
+
+- a new shell command in elua shell.
+- a new API that can be called from elua.
+
+This script requires some well-known Lua libraries to run.
+To install them on Ubuntu/Debian, go (as root):
+apt-get install luarocks
+luarocks install luafilesystem
+luarocks install lpack
+luarocks install md5
+ 
+Then, type "./build.sh" to compile.
+
+Study Notes:
+How to create a cscope? //
+   find . -name "*.[chS]" > cscope.files
+   vi cscope.files
+   cscope
+
+How to create & appy a git patch?
+ git ls-remote https://github.com/shengliang/e4357.git 
+
+# git: create a patch from top cl
+   git show [hashID]
+   git format-patch HEAD~
+
+   # extract 2 topmost commits
+   git format-patch -2
+
+# apply a patch
+   git am <...patch>
+
+# add files
+   git diff
+   git status
+   git add build.sh
+   git add src/shell/shell_mem.c
+   git commit -a -m 'shell: add md'
+   git commit -a -m 'lua: add md'
+   git commit -a --amend 
+
+# checkin local branch to remote branches
+   git remote -v
+   git push origin local_branch_name:remote_branch_name
+   git push origin master:master
+   git push origin :remtoe_branch_name  //delete a remote branhc
+
+# change remote url
+   git remote set-url origin git://new.url.here
+   git push origin master:master
+
+B. IMPLEMENTATION:
+
+  1.  Researched about eLua and Lua.
+  
+  2.  Explored and familiarized myself with eLua.
+      a.  Explored builder.eluaproject.net for eLua/Lua’s features, including Lua’s quick tour online.
+      b.	Downloaded the image elua_lua_mbed.bin image into mbed LPC1768 so eLua programs can be run to control the mbed               board.
+      c.	Implemented sample eLua program on mbed board with “Hello World.”
+      d.	The sample Lua script that’s supposed to control mbed’s LED1 didn’t work.
+      e.	Had to modify the Lua code to make it work to get familiarized with Lua programming a little bit and run it on 
+          mbed. Instead of just LED1, made LED’s 1-4 blink. Lua code below:
+          
+-- start Lua code:
+
+-- blinky.lua
+-- blink LED1-4 on the mbed board
+-- press any key to end this program
+
+--globals
+led1val=0
+led2val=0
+led3val=0
+led4val=0
+
+function printledstatus()
+     if led1val==0 then io.write("led1 off,	") end
+     if led1val==1 then io.write("led1 ON,	") end
+     if led2val==0 then io.write("led2 off,	") end
+     if led2val==1 then io.write("led2 ON,	") end
+     if led3val==0 then io.write("led3 off,	") end
+     if led3val==1 then io.write("led3 ON,	") end
+     if led4val==0 then io.write("led4 off	") end
+     if led4val==1 then io.write("led4 ON	") end
+     print()
+end
+
+function ledval(led,val)
+    if val==0 then 
+		pio.pin.setlow(led)
+		if led==led1 then led1val=0 end
+		if led==led2 then led2val=0 end
+		if led==led3 then led3val=0 end
+		if led==led4 then led4val=0 end
+    end
+    if val==1 then 
+		pio.pin.sethigh(led)
+		if led==led1 then led1val=1 end
+		if led==led2 then led2val=1 end
+		if led==led3 then led3val=1 end
+		if led==led4 then led4val=1 end
+    end
+    printledstatus()
+end
+
+led1=pio.P1_18 
+led2=pio.P1_20 
+led3=pio.P1_21 
+led4=pio.P1_23 
+pio.pin.setdir(pio.OUTPUT, led1) 
+pio.pin.setdir(pio.OUTPUT, led2) 
+pio.pin.setdir(pio.OUTPUT, led3) 
+pio.pin.setdir(pio.OUTPUT, led4) 
+print ("")
+print ("Hello World...")
+print ("Press any key to exit program...")
+print ("")
+
+--init:
+print("init led's:")
+ledval(led1,0)
+ledval(led2,0)
+ledval(led3,0)
+ledval(led4,0)
+
+print ("")
+print ("")
+print("blink led's:")
+print ("")
+
+while (term.getchar(term.NOWAIT) == -1) do
+     print ("")
+     print("turning on LED's:")
+     ledval(led1,1)          
+     tmr.delay(nil, 200000)
+     ledval(led2,1)          
+     tmr.delay(nil, 200000)
+     ledval(led3,1)          
+     tmr.delay(nil, 200000)
+     ledval(led4,1)          
+     tmr.delay(nil, 200000)
+
+     print("turning off LED's:")
+     ledval(led4,0)          
+     tmr.delay(nil, 200000)
+     ledval(led3,0)          
+     tmr.delay(nil, 200000)
+     ledval(led2,0)          
+     tmr.delay(nil, 200000)
+     ledval(led1,0)          
+     tmr.delay(nil, 200000)
+
+     print ("")
+end -- end while-do
+
+print ("")
+print ("Bye World.")
+print ("")
+          
+-- end Lua code:
