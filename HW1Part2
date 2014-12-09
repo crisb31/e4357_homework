@@ -1,0 +1,24 @@
+A.	Description: AirLink 101 DVD/CD Burner/Drive
+B.	Electronic Components:
+    1.	USB 2.0 IDE BRIDGE
+        a.	Manufacturer: NEC/RENESAS
+        b.	Part Number: D720133GB (uPD720133)
+        c.	IC Type/Function: MCU With X86 Complex Instruction Set Computing CPU
+        d.	Relevant Specifications:
+            i.	Clock Freq: 30 MHz
+            ii.	Power Supply: 2.5V, 3.3V
+            iii.	RAM: 2-KByte X 2 Work RAM for Firmware
+            iv.	ROM: 12-KByte ROM Area for Built-in Firmware
+            v.	I/O Interfaces: IDE, GPIO, USB2.0, Serial ROM
+        e.	Datasheet Link:
+              https://drive.google.com/open?id=0B0jb4WeemkjARHB2VnV2bG5XZlk&authuser=0 
+    2.	Synchronous DRAM
+        a.	Manufacturer: ESMT
+        b.	Part Number: M12L16161A-LZS1P51E9
+        c.	IC Type/Function: DRAM Memory
+        d.	Relevant Specifications: 
+            i.	Clock Freq: 143MHz
+            ii.	Power Supply: 3.3V
+            iii.	Organization: 512K x 16Bit x 2Banks
+        e.	Datasheet Link:
+            https://drive.google.com/file/d/0B0jb4WeemkjARU8zalVCazg1R2s/view 
