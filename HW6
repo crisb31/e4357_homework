@@ -1,0 +1,119 @@
+A.	DIRECTIONS/QUESTIONS:
+#ifndef __CIRCULAR_BUFFER
+#define __CIRCULAR_BUFFER
+
+/* Implement a circular buffer library with the following API interface */
+
+/**< Circular Buffer Types */
+typedef unsigned char INT8U;
+typedef INT8U KeyType;
+
+typedef struct {  
+    INT8U writePointer ; /**< write pointer */  
+    INT8U readPointer ;  /**< read pointer */  
+    INT8U size;         /**< size of circular buffer */
+    INT8U mask;         /**< bit Mask of circular buffer size*/   
+    KeyType keys[0];    /**< Element of ciruclar buffer */
+} CircularBuffer ; 
+
+inline int CircularBufferIsFull(CircularBuffer* que)
+{ }
+inline int CircularBufferIsEmpty(CircularBuffer* que)
+{ }
+inline int CircularBufferEnque(CircularBuffer* que, KeyType k)
+{ }
+inline int CircularBufferDeque(CircularBuffer* que, KeyType* pK)
+{ }
+inline int CircularBufferPrint(CircularBuffer* que)
+{ }
+
+#endif
+
+B.  IMPLEMENTATION:
+
+    1. Researched about circular buffers.
+    
+    2. Coded the API and implemented it on mbed.
+
+#ifndef __CIRCULAR_BUFFER
+#define __CIRCULAR_BUFFER
+
+/* Implement a circular buffer library with the following API interface */
+
+/**< Circular Buffer Types */
+typedef unsigned char INT8U;
+typedef INT8U KeyType;
+
+typedef struct 
+{  
+    INT8U writePointer ; /**< write pointer */  
+    INT8U readPointer ;  /**< read pointer */  
+    INT8U size;         /**< size of circular buffer */
+    INT8U mask;         /**< bit Mask of circular buffer size*/   
+    KeyType keys[0];    /**< Element of circular buffer */
+} CircularBuffer ; 
+
+inline int CircularBufferPrint(CircularBuffer* que) 
+{ 
+    pc.printf("\r\n\twritePointer= %d, ",que->writePointer);
+    pc.printf("readPointer= %d, ",que->readPointer);
+    pc.printf("size= %d, ",que->size);
+    pc.printf("mask= 0x%x",que->mask);
+    for(int i=0;i<(que->size);i++)
+        pc.printf("\r\n\tBuffer[%d]=0x%x",i,que->keys[i]);
+    pc.printf("\r\n");
+    return 0;
+}
+
+inline int CircularBufferIsFull(CircularBuffer* que) 
+{ // NOTE: Value of 0xff is considered empty.
+    if ((que->keys[que->writePointer]!=0xff)&&(que->writePointer==que->readPointer)) //FULL   
+    		 return 1;
+    else
+    		 return 0;
+}
+
+inline int CircularBufferIsEmpty(CircularBuffer* que)
+{ // NOTE: Value of 0xff is considered empty.
+    if ((que->keys[que->readPointer]==0xff)&&(que->readPointer==que->writePointer)) //EMPTY
+    	  return 1;
+    else
+    	  return 0;
+}
+
+inline int CircularBufferEnque(CircularBuffer* que, KeyType k) 
+{ 
+   if (CircularBufferIsFull(que)) //FULL    
+    {
+  	   pc.printf("\r\n\tNOTE: An attempt was made to write to a FULL Circular Buffer.");
+    }
+  else
+    {
+       que->keys[que->writePointer]=k&(que->mask);
+  	   pc.printf("\r\n\tEnqued value to writePointer index %d = 0x%x",\
+                	que->writePointer,que->keys[que->writePointer]);
+       que->writePointer=((que->writePointer)+1)%(que->size);
+    }
+  CircularBufferPrint (que);
+  return 0;    
+}
+
+inline int CircularBufferDeque(CircularBuffer* que, KeyType* pK) 
+{
+   if (CircularBufferIsEmpty(que)) //EMPTY    
+    {
+        pc.printf("\r\n\n\tNOTE: An attempt was made to read from an EMPTY Circular Buffer..");
+    }
+    else
+    {
+        *pK=(que->keys[que->readPointer])&(que->mask);
+        que->keys[que->readPointer]=0xff;//update readPointer value to empty
+        pc.printf("\r\n\tDequed value from readPointer index %d = 0x%x",que->readPointer,*pK);
+        que->readPointer=((que->readPointer)+1)%(que->size); //update readPointer
+    }
+    CircularBufferPrint (que); //defined somewhere
+    return 0;
+}
+
+#endif
+    
