@@ -1,0 +1,9 @@
+1.	Registered to https://developer.mbed.org/
+2.	Latest firmware, schematics and datasheets.
+    Installed Latest  Firmware: The latest firmware version is 141212. 
+    To check your firmware version, open the MBED.HTM file on your mbed Microcontroller:
+    <meta http-equiv="refresh" content="0; 
+    url=http://mbed.org/start?auth=101000000000000000000002F7F20DDAfc33de58e91500e52061b7a77a5901a2&loader=11972&firmware=141212&configuration=4" />
+    
+    Downloaded Schematics and Datasheets.
+3.	Exported “Hello World” program offline to uVision and GCC ARM.
