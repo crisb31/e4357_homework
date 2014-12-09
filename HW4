@@ -8,7 +8,8 @@ A.	DIRECTIONS/QUESTIONS:
     Program Example 7.9 Bidirectional Data transfer between two mbed UARTs.
 
     Work with a classmate as a team for this Program Assignment.  
-    Connect two mbeds as show in Figure 7.13, and compile and download Program Example 7.9 into each.  You should find that the     switches from one mbed control the LEDs from the other, and vice versa.
+    Connect two mbeds as show in Figure 7.13, and compile and download Program Example 7.9 into each.  
+    You should find that the switches from one mbed control the LEDs from the other, and vice versa.
 
 B. IMPLEMENTATION:
 
